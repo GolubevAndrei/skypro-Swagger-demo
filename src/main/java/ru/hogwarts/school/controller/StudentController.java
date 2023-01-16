@@ -22,9 +22,6 @@ public class StudentController {
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo(@PathVariable Long id) {
         Student student = studentService.findStudent(id);
-        if (student == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(student);
     }
 
@@ -33,12 +30,9 @@ public class StudentController {
         return studentService.addStudent(student);
     }
 
-    @PutMapping
-    public ResponseEntity<Student> editStudent(@RequestBody Long id,@RequestBody Student student) {
+    @PutMapping("{id}")
+    public ResponseEntity<Student> editStudent(@PathVariable Long id,@RequestBody Student student) {
         Student foundStudent = studentService.editStudent(id,student);
-        if (foundStudent == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
         return ResponseEntity.ok(foundStudent);
     }
 
@@ -53,5 +47,10 @@ public class StudentController {
             return ResponseEntity.ok(studentService.findByAge(age));
         }
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping(params = {"minAge", "maxAge"})
+    public Collection<Student> findByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
+        return studentService.findByAgeBetween(minAge, maxAge);
     }
 }
