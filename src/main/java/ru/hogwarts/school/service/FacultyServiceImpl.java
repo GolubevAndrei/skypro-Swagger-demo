@@ -3,7 +3,9 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exeption.FacultyNotFoundExeption;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
 
@@ -11,9 +13,11 @@ import java.util.*;
 public class FacultyServiceImpl implements FacultyService {
 
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 
-    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+    public FacultyServiceImpl(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -41,4 +45,14 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> findByColor(String color) {
         return facultyRepository.findAllByColor(color);
     }
+
+    public Collection<Faculty> findByColorOrName(String colorOrName) {
+        return facultyRepository.findByColorIgnoreCaseOrNameIgnoreCase(colorOrName, colorOrName);
+    }
+    @Override
+    public Collection<Student> getStudentByFaculty(long id) {
+        Faculty faculty = findFaculty(id);
+        return studentRepository.findAllByFaculty_Id(faculty.getId());
+    }
+
 }

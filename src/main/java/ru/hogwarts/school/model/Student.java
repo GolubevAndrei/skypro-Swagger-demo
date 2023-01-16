@@ -11,11 +11,8 @@ public class Student {
     private String name;
     private int age;
 
-//    public Student(Long id, String name, int age) {
-//        this.id = id;
-//        this.name = name;
-//        this.age = age;
-//    }
+    @ManyToOne
+    private  Faculty faculty;
 
     public Long getId() {
         return id;
@@ -62,5 +59,13 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 }
