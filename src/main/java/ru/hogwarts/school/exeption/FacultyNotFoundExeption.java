@@ -3,7 +3,7 @@ package ru.hogwarts.school.exeption;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
+@ResponseStatus(code = HttpStatus.NO_CONTENT)
 public class FacultyNotFoundExeption extends RuntimeException{
 
     private final Long id;
