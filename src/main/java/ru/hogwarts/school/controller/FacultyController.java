@@ -31,8 +31,8 @@ public class FacultyController {
         return facultyService.addFaculty(faculty);
     }
 
-    @PutMapping
-    public ResponseEntity<Faculty> editFaculty(@RequestBody Long id, @RequestBody Faculty faculty) {
+    @GetMapping("{id}")
+    public ResponseEntity<Faculty> editFaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         return ResponseEntity.ok(foundFaculty);
     }

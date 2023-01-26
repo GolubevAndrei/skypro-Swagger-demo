@@ -31,8 +31,10 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findById(id).orElseThrow(() -> new FacultyNotFoundExeption(id));
     }
     @Override
-    public Faculty editFaculty(long id, Faculty faculty) {
+    public Faculty editFaculty(long id, Faculty newFaculty) {
         Faculty oldFaculty = findFaculty(id);
+        oldFaculty.setName(newFaculty.getName());
+        oldFaculty.setColor(newFaculty.getColor());
         return facultyRepository.save(oldFaculty);
     }
     @Override

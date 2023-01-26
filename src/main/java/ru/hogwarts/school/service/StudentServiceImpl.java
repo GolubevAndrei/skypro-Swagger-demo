@@ -28,9 +28,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundExeption(id));
     }
     @Override
-    public Student editStudent(long id, Student student) {
-
+    public Student editStudent(long id, Student newStudent) {
         Student oldStudent = findStudent(id);
+        oldStudent.setAge(newStudent.getAge());
+        oldStudent.setFaculty(newStudent.getFaculty());
+        oldStudent.setName(newStudent.getName());
         return studentRepository.save(oldStudent);
     }
     @Override
