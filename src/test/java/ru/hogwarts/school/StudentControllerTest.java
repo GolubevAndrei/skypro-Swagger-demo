@@ -96,13 +96,21 @@ public class StudentControllerTest {
 
     @Test
     public void findByAgeBetweenTest() {
-        List<Faculty> faculties = Stream.generate (this::generateFaculty).limit(5).map(this::addFaculty).toList();
-        List<Student> students = Stream.generate(() -> generateStudent(faculties.get(faker.random().nextInt(faculties.size())))).limit(50).map(this::addStudent).toList();
+        List<Faculty> faculties = Stream.generate(this::generateFaculty)
+                .limit(5)
+                .map(this::addFaculty)
+                .toList();
+        List<Student> students = Stream.generate(() -> generateStudent(faculties.get(faker.random().nextInt(faculties.size()))))
+                .limit(50)
+                .map(this::addStudent)
+                .toList();
 
         int minAge = 14;
         int maxAge = 17;
 
-        List<Student> expectedStudent = students.stream().filter(studentRecord -> studentRecord.getAge() >= minAge && studentRecord.getAge() <= maxAge).toList();
+        List<Student> expectedStudent = students.stream()
+                .filter(studentRecord -> studentRecord.getAge() >= minAge && studentRecord.getAge() <= maxAge)
+                .toList();
 
         ResponseEntity<List<Student>> getForEntytiresponse = testRestTemplate.exchange("http://localhost:" + port + "/students?minAge={minAge}&maxAge={maxAge}", HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<Student>>() {
         }, minAge, maxAge);
