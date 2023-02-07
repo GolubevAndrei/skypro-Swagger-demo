@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public class AvatarController {
 
@@ -39,5 +41,11 @@ public class AvatarController {
                 .contentType(MediaType.parseMediaType(pair.getFirst()))
                 .contentLength(pair.getSecond().length)
                 .body(pair.getSecond());
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<Collection<Avatar>> getAll(@RequestParam("page") Integer pageNumber,
+                                                     @RequestParam("size") Integer pageSize) {
+        return avatarService.getAll(pageNumber, pageSize);
     }
 }
