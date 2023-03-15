@@ -32,6 +32,7 @@ public class AvatarServiceImpl {
     }
 
     public void  uploadAvatar(MultipartFile multipartFile) throws IOException {
+        logger.info("Was invoked method for uploadAvatar");
         byte[] data = multipartFile.getBytes();
         Avatar avatar = create(multipartFile.getSize(), multipartFile.getContentType(), data);
 
@@ -47,6 +48,7 @@ public class AvatarServiceImpl {
     private Avatar create(long size,
                           String contentType,
                           byte[] data) {
+        logger.info("Was invoked method for createAvatar");
         Avatar avatar = new Avatar();
         avatar.setData(data);
         avatar.setFileSize(size);
@@ -55,11 +57,13 @@ public class AvatarServiceImpl {
     }
 
     public Pair<String, byte[]> readAvatarFromDb(long id) {
+        logger.info("Was invoked method for readAvatarFromDb");
         Avatar avatar = avatarRepository.findById(id).orElseThrow(() -> new AvatarNotFoundExeption(id));
         return Pair.of(avatar.getMediaType(), avatar.getData());
     }
 
     public Pair<String, byte[]> readAvatarFromFs(long id) throws IOException {
+        logger.info("Was invoked method for readAvatarFromFs");
         Avatar avatar = avatarRepository.findById(id).orElseThrow(() -> new AvatarNotFoundExeption(id));
         return Pair.of(avatar.getMediaType(), Files.readAllBytes(Paths.get(avatar.getFilePath())));
     }
