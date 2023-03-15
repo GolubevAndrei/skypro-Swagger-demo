@@ -69,4 +69,17 @@ public class FacultyServiceImpl implements FacultyService {
         return studentRepository.findAllByFaculty_Id(faculty.getId());
     }
 
+    public Optional<String> findMaxNameFaculty() {
+
+        logger.info("Was invoked method for findMaxNameFaculty");
+        Optional<String> MaxNameFaculty = facultyRepository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length));
+
+        return MaxNameFaculty;
+    }
+
+
+
 }

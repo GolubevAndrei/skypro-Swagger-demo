@@ -16,11 +16,15 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.repository.AvatarRepository;
+
+import java.util.stream.LongStream;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -112,6 +116,25 @@ public class StudentServiceImpl implements StudentService {
     private String getExtension(String fileName) {
         logger.info("Was invoked method for getExtension");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    public List<String> findAStudents() {
+
+        logger.info("Was invoked method for findAStudents");
+        return studentRepository.findAll().stream()
+                .map(student -> student.getName())
+                .filter(s -> s.startsWith("А"))
+                .sorted((s1, s2) -> s1.compareTo(s2)).map(s -> s.toUpperCase())
+                            .collect(Collectors.toList());
+    }
+
+    public Double findAverageStudent() {
+
+        logger.info("Was invoked method for findAverageStudent");
+        return studentRepository.findAll().stream()
+                .mapToInt(student -> student.getAge())
+                .average()
+                .orElse(0);
     }
 
 }
