@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 public class AvatarServiceImpl {
     private final AvatarRepository avatarRepository;
-    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     @Value("./avatar")
     private  String folderForAvatars;

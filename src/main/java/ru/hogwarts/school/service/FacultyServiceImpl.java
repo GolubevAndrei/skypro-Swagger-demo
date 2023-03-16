@@ -14,7 +14,7 @@ import java.util.*;
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
 
     private final FacultyRepository facultyRepository;
     private final StudentRepository studentRepository;

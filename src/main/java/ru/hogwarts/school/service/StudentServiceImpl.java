@@ -25,7 +25,7 @@ import ru.hogwarts.school.repository.AvatarRepository;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     @Value("${avatars.dir.path}")
     private String avatarsDir;
     private final StudentRepository studentRepository;
